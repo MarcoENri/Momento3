@@ -37,8 +37,13 @@ export class AttendeesController {
     return this.attendeesService.findAdultAttendees();
   }
   @Get('nervous')
-  findNervousAttendees() {
-    return this.attendeesService.findNervousAttendees();
+  async findNervousAttendees() {
+    try {
+      const nervousAttendees = await this.attendeesService.findNervousAttendees();
+      return { data: nervousAttendees };
+    } catch (error) {
+      console.error(error);
+      return { error: 'Internal Server Error' };
+    }
   }
-
 }
